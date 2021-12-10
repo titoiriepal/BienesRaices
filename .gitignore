@@ -3,4 +3,5 @@
 *.sass.map
 *.scss.map
 .src/
+
 node_modules
