@@ -1,42 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienes Raices</title>
-    <link rel="stylesheet" href="build/css/app.css">
-</head>
-<body>
-     <header class="header">
-        <div class="contenedor contenido-header">
-            <div class="barra">
-                <a href="/">
-                    <img src="build/img/logo.svg" width="100%" height="100%" alt="Logotipo de la empresa Bienes Raices">
-                </a>
+<?php 
+    include './includes/templates/header.php';
+?>
 
-                <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="Icono Menú Responsive" height="50%" width="50%">
-                </div>
-
-                <div class="derecha">
-
-                    <img src="build/img/dark-mode.svg" alt="Botón para el dark mode" class="dark-mode-boton" width="50%" height="50%">
-                    <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
-                    </nav>
-                    
-
-                </div>
-                
-
-            </div><!-- barra -->
-            <h1>Venta de Casas y apartamentos exclusivos de lujo</h1>
-
-        </div>
-     </header>
 
      <main class="contenedor seccion">
         <h1>Conoce sobre nosotros</h1>
@@ -44,9 +9,9 @@
         <div class="contenido-nosotros">
             <div class="imagen-nosotros">
                 <picture>
-                    <source srcset="../build/img/nosotros.webp" type="image/webp">
-                    <source srcset="../build/img/nosotros.jpg" type="image/jepg"/> <!-- si no soporta webp carga este-->
-                    <img loading="lazy" src="../build/img/nosotros.jpg" alt="Imagen sobre nosotros" width="100%" height="100%">
+                    <source srcset="build/img/nosotros.webp" type="image/webp">
+                    <source srcset="build/img/nosotros.jpg" type="image/jepg"/> <!-- si no soporta webp carga este-->
+                    <img loading="lazy" src="build/img/nosotros.jpg" alt="Imagen sobre nosotros" width="100%" height="100%">
                 </picture>
             </div>
             <div class="texto-nosotros">
