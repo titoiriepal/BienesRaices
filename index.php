@@ -148,7 +148,7 @@
                     </picture>
                 </div><!--.Imagen Entrada-->
                 <div class="texto-entrada">
-                    <a href="entrada.html"><h4>Terraza en el techo de tu casa</h4></a>
+                    <a href="entrada.php"><h4>Terraza en el techo de tu casa</h4></a>
                     
                     <p class="informacion-meta">Escrito el <span>20/03/2024</span> por <span>Admim</span></p>
 
@@ -164,7 +164,7 @@
                     </picture>
                 </div><!--.Imagen Entrada-->
                 <div class="texto-entrada">
-                    <a href="entrada.html"><h4>Guía para la decoración de tu hogar</h4></a>
+                    <a href="entrada.php"><h4>Guía para la decoración de tu hogar</h4></a>
                     
                     <p class="informacion-meta">Escrito el <span>20/03/2024</span> por <span>Admim</span></p>
 
@@ -186,21 +186,6 @@
         </section>
      </div>
 
-     <footer class="footer seccion">
-        <div class="contenedor contenedor-footer">
-            <nav class="navegacion">
-                <a href="nosotros.html">Nosotros</a>
-                <a href="anuncios.html">Anuncios</a>
-                <a href="blog.html">Blog</a>
-                <a href="contacto.html">Contacto</a>
-            </nav>
-            
-        </div>
-        <p class="copyright">Todos los derechos Reservados 2024 &copy;</p>
-     </footer>
-
-
-
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
+<?php 
+    include './includes/templates/footer.php';
+?>
