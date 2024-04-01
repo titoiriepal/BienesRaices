@@ -1,7 +1,8 @@
 <?php 
 
+    require 'includes/funciones.php';
     $inicio = true;
-    include './includes/templates/header.php';
+    incluirTemplate('header', $inicio);
 ?>
 
 
@@ -58,7 +59,7 @@
                         </li>
                     </ul>
 
-                    <a href="anuncio.html" class="boton boton-amarillo-block">Ver Propiedad</a>
+                    <a href="anuncio.php" class="boton boton-amarillo-block">Ver Propiedad</a>
                 </div><!-- .Contenido Anuncio -->
             </div><!--.anuncio-->
             <div class="anuncio">
@@ -88,7 +89,7 @@
                         </li>
                     </ul>
 
-                    <a href="anuncio.html" class="boton boton-amarillo-block">Ver Propiedad</a>
+                    <a href="anuncio.php" class="boton boton-amarillo-block">Ver Propiedad</a>
                 </div><!-- .Contenido Anuncio -->
             </div><!--.anuncio-->
             <div class="anuncio">
@@ -118,13 +119,13 @@
                         </li>
                     </ul>
 
-                    <a href="anuncio.html" class="boton boton-amarillo-block">Ver Propiedad</a>
+                    <a href="anuncio.php" class="boton boton-amarillo-block">Ver Propiedad</a>
                 </div><!-- .Contenido Anuncio -->
             </div><!--.anuncio-->
         </div><!--.contenedor-anuncios-->
 
         <div class="alinear-derecha">
-            <a href="anuncios.html" class="boton-verde">Ver Todas</a>
+            <a href="anuncios.php" class="boton-verde">Ver Todas</a>
         </div>
 
      </section>
@@ -187,5 +188,5 @@
      </div>
 
 <?php 
-    include './includes/templates/footer.php';
+    incluirTemplate('footer');
 ?>
