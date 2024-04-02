@@ -1,0 +1,12 @@
+{
+    "name": "titoi/bienesraices",
+    "description": "Proyect html SASS GULP PHP",
+    "autoload": {
+        "psr-4": {
+            "Titoi\\Bienesraices\\": "src/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
