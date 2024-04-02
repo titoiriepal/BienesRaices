@@ -14,10 +14,6 @@ function conectarDB() : mysqli{
         $_SERVER["DB_SCHEME"]
     );
 
-    echo '<pre>'; 
-    var_dump($_ENV); 
-    echo '</pre>'; 
-     
 
     if (!$db) {
         echo "Error: No se pudo conectar a MySQL.";
