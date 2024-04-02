@@ -7,6 +7,11 @@
     require '../../includes/config/database.php';
     $db=conectarDB(); 
 
+        //Consultar la BD para obtener los vendedores
+
+        $query= "SELECT * FROM vendedores;";
+        $vendedores = mysqli_query($db, $query);
+
         //Arrego con mensajes de errores
 
         $errores=[];
@@ -31,8 +36,10 @@
         $habitaciones = $_POST['habitaciones'];
         $wc = $_POST['wc'];
         $estacionamiento = $_POST['estacionamiento'];
+        $creado = date('Y/m/d');
         $vendedores_id = $_POST['vendedores_id'];
 
+         
         if(!$titulo){
             $errores[] = 'Debes añadir un título';
         }else if( strlen($titulo) > 45){
@@ -81,17 +88,17 @@
         //Revisar  que el arreglo de errores esté vacío para  poder insertar los datos en la BD.
         if(empty($errores)){
 
-            $query= "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id')";    
+            $query= "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";    
 
-            //echo $query;
+          
+
+           
 
             $resultado = mysqli_query($db, $query);
-            
+
             if($resultado){
-                echo "insertado correctamente";
-            }else{
-                echo "error en la creación del registro";
-            };
+                header('location: /admin?message=1');
+            }
 
         }
 
@@ -114,11 +121,6 @@
             <p class="alerta error"><?php echo $error;?></p>
 
         <?php endforeach; ?>
-
-        <?php if($resultado) { ?>
-            <p class="alerta exito">Registro insertado correctamente</p>
-
-        <?php }; ?>
 
         </div>
 
@@ -158,9 +160,12 @@
 
                 <select name="vendedores_id" id="vendedores_id">
 
-                    <option disabled selected>--Selecciona un vendedor--</option>
-                    <option value="1" <?php echo $vendedores_id == 1 ? 'selected' : ''?>>Antonio López</option>
-                    <option value="2" <?php echo $vendedores_id == 2 ? 'selected': ''?>>María Perez</option>
+                    <option value="" disabled selected>--Selecciona un vendedor--</option>
+                    <?php  while ($vendedor = mysqli_fetch_assoc($vendedores))  : ?>
+                        <option value="<?php echo $vendedor['id']?>"<?php echo $vendedores_id == $vendedor['id'] ? 'selected' : '';?>><?php echo $vendedor['nombre'] . " " . $vendedor['apellidos']; ?></option> <!--Traemos el valor del id para el valor del option. Luego lo comparamos con el id anterior para ver si estaba seleccionado anteriormete. Finalmente cargamos el nombre y el apellido en la lista del option para poder seleccionarlo-->
+                    <?php endwhile; ?>
+                    <!-- <option value="1" <?php echo $vendedores_id == 1 ? 'selected' : ''?>>Antonio López</option>
+                    <option value="2" <?php echo $vendedores_id == 2 ? 'selected': ''?>>María Perez</option> -->
                 </select>
                 
             
