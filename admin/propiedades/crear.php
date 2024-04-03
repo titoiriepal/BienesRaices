@@ -30,14 +30,23 @@
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
 
-        $titulo = $_POST['titulo'];
-        $precio = $_POST['precio'];
-        $descripcion = $_POST['descripcion'];
-        $habitaciones = $_POST['habitaciones'];
-        $wc = $_POST['wc'];
-        $estacionamiento = $_POST['estacionamiento'];
+        // echo '<pre>'; 
+        // var_dump($_FILES); 
+        // echo '</pre>'; 
+         
+
+        $titulo = mysqli_real_escape_string( $db, $_POST['titulo']);
+        $precio = mysqli_real_escape_string( $db, $_POST['precio']);
+        $descripcion = mysqli_real_escape_string( $db, $_POST['descripcion']);
+        $habitaciones = mysqli_real_escape_string( $db, $_POST['habitaciones']);
+        $wc = mysqli_real_escape_string( $db, $_POST['wc']);
+        $estacionamiento = mysqli_real_escape_string( $db, $_POST['estacionamiento']);
         $creado = date('Y/m/d');
-        $vendedores_id = $_POST['vendedores_id'];
+        $vendedores_id = mysqli_real_escape_string( $db, $_POST['vendedores_id']);
+
+        //Asignar files hacia una variable
+
+        $imagen = $_FILES[ 'imagen' ];
 
          
         if(!$titulo){
@@ -80,6 +89,18 @@
             $errores[] = 'Debes elegir un vendedor';
         }
 
+        //Comprobar que existe la imagen y que pesa menos de 200KB
+
+        $limiteKB=2000000; //Limite de 2MB para las imagenes
+        if(!$imagen['name']){
+            $errores[] = 'La imagen es obligatoria';
+        }else if($imagen['error']){
+            $errores[] = 'Ha ocurrido un error en el envío del archivo: '. $imagen['error'];
+        
+        }else if($imagen['size'] > $limiteKB){
+            $errores[] = "El archivo es demasiado grande. El tamaño máximo permitido son " . $limiteKB / 1000 . "KB";
+        }
+
 
         // echo '<pre>'; 
         // var_dump($errores); 
@@ -88,11 +109,38 @@
         //Revisar  que el arreglo de errores esté vacío para  poder insertar los datos en la BD.
         if(empty($errores)){
 
-            $query= "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";    
+            /**Subida de archivos*/
 
-          
+            //Crear Carpeta
+            $carpetaImagenes = '../../imagenes';
 
-           
+            if(!is_dir($carpetaImagenes)){
+                mkdir($carpetaImagenes);
+            }
+
+            //Subir la imagen
+            $typeImagen = $imagen['type'];
+
+            switch ($typeImagen) {
+                case 'image/png':
+                    $extension = '.png';
+                    break;
+                
+                case 'image/webp':
+                    $extension = '.webp';
+                    break;
+                
+                default:
+                    $extension = '.jpg';
+                    break;
+            }
+
+            //Generar un nombre único
+            $nombreImagen = md5(uniqid(rand(), true)) . $extension;
+
+            move_uploaded_file($imagen['tmp_name'],$carpetaImagenes . "/" . $nombreImagen);
+
+            $query= "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id')";    
 
             $resultado = mysqli_query($db, $query);
 
@@ -102,7 +150,7 @@
 
         }
 
-} 
+    } 
     require '../../includes/funciones.php';
     incluirTemplate('header');  
 
@@ -124,7 +172,7 @@
 
         </div>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
+        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
             <fieldset>
                 <legend>Información General</legend>
 
@@ -135,7 +183,7 @@
                 <input type="number" id="precio" name="precio" placeholder="Precio de la propiedad" min="1" value="<?php echo $precio ?>">
 
                 <label for="imagen">Imágen:</label>
-                <input type="file" id="imagen" accept="image/jpeg, image/png, image/webp">
+                <input type="file" id="imagen" accept="image/jpeg, image/png, image/webp" name="imagen">
 
                 <label for="descripcion">Descripción:</label>
                 <textarea id="descripcion" name="descripcion"><?php echo $descripcion ?></textarea>

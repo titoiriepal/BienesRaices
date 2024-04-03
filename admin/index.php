@@ -1,5 +1,7 @@
 <?php 
     require '../includes/funciones.php';
+
+    $message = $_GET['message'] ?? null;
     incluirTemplate('header');
      
 ?>
@@ -9,7 +11,7 @@
         <h1>Administrador de Bienes Raices</h1>
 
         <div class="errores">
-        <?php if($_GET['message'] === '1') { ?>
+        <?php if(intval($message) === 1) { ?>
             <p class="alerta exito">Registro insertado correctamente</p>
 
         <?php }; ?>
