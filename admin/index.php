@@ -25,10 +25,22 @@
         
 
         <div class="errores">
-        <?php if(intval($message) === 1) { ?>
+        <?php switch($message) { 
+            case 1: ?>
             <p class="alerta exito">Registro insertado correctamente</p>
+        <?php break; ?>
+        <?php case 2 :?>
+            <p class="alerta error">No se ha proporcionado un id para la actualización</p>
 
-        <?php }; ?>
+        <?php break; ?>
+        <?php case 3 :?>
+            <p class="alerta error">El id proporcionado para la actualización no corresponde con ninguna propiedad</p>
+
+        <?php break; ?>
+        <?php case 4 :?>
+            <p class="alerta exito">Registro actualizado correctamente</p>
+
+        <?php break; }?>
         </div>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
@@ -56,7 +68,7 @@
                         </td>
                         <td><?php echo $propiedad['precio']?> €</td>
                         <td class= "acciones">
-                            <a class="boton boton-amarillo-block" href="propiedades/actualizar.php">Actualizar</a>
+                            <a class="boton boton-amarillo-block" href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']?>.php">Actualizar</a>
                             <a class="boton boton-rojo-block" href="propiedades/eliminar.php">Eliminar</a>
 
                         </td>
