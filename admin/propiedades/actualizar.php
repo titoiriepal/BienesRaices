@@ -2,27 +2,30 @@
     require '../../includes/funciones.php';
     require '../../includes/config/database.php';
 
+    //Si no hay Id volvemos al index de administración
+
     if(!$_GET['id']){
         header('location: /admin?message=2');
     }
 
+    //identificamos la propiedad
+
     $idPropiedad = $_GET['id'];
 
+    //Consultar la BD para obtener la propiedad
+
     $db=conectarDB(); 
-
-    //Consultar la BD para obtener los vendedores
-
     $query= "SELECT * FROM propiedades WHERE id = '" . $idPropiedad . "'";
     $resultado = mysqli_query($db, $query);
 
+    //Si no hay una propiedad con el id especificado, volvemos a la principal de administración
     if ($resultado->num_rows == 0){
             header('location: /admin?message=3');
         
     }
 
+    //Cargamos los datos de la propiedad
     $propiedad = mysqli_fetch_assoc($resultado); 
-
-    $errores=[];
 
     $id=$propiedad['id'] ;
     $titulo = $propiedad['titulo'];
@@ -33,10 +36,15 @@
     $estacionamiento = $propiedad['estacionamiento'];
     $vendedores_id = $propiedad['vendedores_id'];
 
+    //Almacenamos el nombre de la imagen para comprobar si hay imagen en el registro
     $nombreImagen = $propiedad['imagen'];
+
+    //Consulta para obtener los vendedores de BD
 
     $query= "SELECT * FROM vendedores;";
     $vendedores = mysqli_query($db, $query);
+
+    $errores=[];
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
 
@@ -99,11 +107,6 @@
         }
 
         //Comprobar que existe la imagen y que pesa menos de 200KB
-
-        echo '<pre>'; 
-        var_dump($nombreImagen); 
-        echo '</pre>'; 
-         
          
 
         $limiteKB=2000000; //Limite de 2MB para las imagenes
@@ -140,6 +143,7 @@
                 /**Subida de archivos*/
     
                 //Subir la imagen
+                //Identificamos el tipo de imagen para poner la extensión en la bd
                 $typeImagen = $imagen['type'];
     
                 switch ($typeImagen) {
@@ -212,6 +216,8 @@
 
             <label for="imagen">Imágen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png, image/webp" name="imagen">
+
+            <img src="/imagenes/<?php echo $nombreImagen;?>" alt="" height="100px" width="150px" class="imagen-actualizar">
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php echo $descripcion ?></textarea>

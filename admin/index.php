@@ -2,7 +2,6 @@
     require '../includes/funciones.php';
     require '../includes/config/database.php';
 
-
     $db=conectarDB(); 
 
     $query= "SELECT id,titulo,precio,imagen FROM propiedades;";
@@ -12,6 +11,36 @@
 
     //Mostrar el mensaje condicional
     $message = $_GET['message'] ?? null;
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+        $id = $_POST['id'];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if($id){
+            //Eliminar la imagen del servidor
+
+            $query= "SELECT imagen FROM propiedades WHERE id = $id";
+            $resultado = mysqli_query($db, $query);
+            $file = mysqli_fetch_assoc($resultado);
+            $nombreImagen = $file['imagen']; 
+
+             
+
+            $carpetaImagenes = '../imagenes';
+            if(file_exists($carpetaImagenes . '/'. $nombreImagen)){
+                unlink($carpetaImagenes . '/'. $nombreImagen);
+            }
+
+
+            $query = "DELETE FROM propiedades WHERE id = $id";
+            $resultado = mysqli_query($db, $query);
+            if($resultado){
+                header('location: /admin?message=5');
+            }
+        }
+
+    }
 
     //Incluir el template de cabecera
     incluirTemplate('header');
@@ -25,20 +54,24 @@
         
 
         <div class="errores">
-        <?php switch($message) { 
+        <?php switch(intval($message)) { 
             case 1: ?>
             <p class="alerta exito">Registro insertado correctamente</p>
-        <?php break; ?>
-        <?php case 2 :?>
+        <?php break; 
+            case 2 :?>
             <p class="alerta error">No se ha proporcionado un id para la actualización</p>
 
-        <?php break; ?>
-        <?php case 3 :?>
+        <?php break; 
+            case 3 :?>
             <p class="alerta error">El id proporcionado para la actualización no corresponde con ninguna propiedad</p>
 
-        <?php break; ?>
-        <?php case 4 :?>
+        <?php break; 
+            case 4 :?>
             <p class="alerta exito">Registro actualizado correctamente</p>
+
+        <?php break; 
+            case 5 :?>
+            <p class="alerta exito">Registro borrado correctamente</p>
 
         <?php break; }?>
         </div>
@@ -69,7 +102,11 @@
                         <td><?php echo $propiedad['precio']?> €</td>
                         <td class= "acciones">
                             <a class="boton boton-amarillo-block" href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']?>.php">Actualizar</a>
-                            <a class="boton boton-rojo-block" href="propiedades/eliminar.php">Eliminar</a>
+                            <form action="" method="POST" class="w-100">
+                                <input type="hidden" name="id" value="<?php echo $propiedad['id']?>">
+                                <input type="submit" class="boton boton-rojo-block" value="Eliminar">
+                            </form>
+                            
 
                         </td>
                     </tr>
