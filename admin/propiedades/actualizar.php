@@ -10,7 +10,7 @@
 
     //identificamos la propiedad
 
-    $idPropiedad = $_GET['id'];
+    $idPropiedad = filter_var(FILTER_VALIDATE_INT,$_GET['id']) ;
 
     //Consultar la BD para obtener la propiedad
 
