@@ -1,5 +1,14 @@
 
+<?php 
 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+
+    $auth = $_SESSION['login'] ?? null;
+    
+     
+?>
 
 
 
@@ -17,7 +26,7 @@
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/index.php">
-                    <img src="/build/img/logo.svg" width="100%" height="100%" alt="Logotipo de la empresa Bienes Raices">
+                    <img src="/build/img/logo.svg" height="50px" width="auto" alt="Logotipo de la empresa Bienes Raices">
                 </a>
 
                 <div class="mobile-menu">
@@ -32,6 +41,11 @@
                         <a href="/anuncios.php">Anuncios</a>
                         <a href="/blog.php">Blog</a>
                         <a href="/contacto.php">Contacto</a>
+                        <?php if($auth): ?>
+                            
+                        <a href="/cerrar-sesion.php">Cerrar Sesión</a>
+                             
+                        <?php endif; ?>
                     </nav>
                     
 

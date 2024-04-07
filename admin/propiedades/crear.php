@@ -1,10 +1,16 @@
 <?php 
+    require '../../includes/funciones.php';
+    require '../../includes/config/database.php';
 
-    
+    $auth = estaAutorizado();
+        if (!$auth) {
+            header("Location:/");
+        }
+
 
     //Base de datos
 
-    require '../../includes/config/database.php';
+    
     $db=conectarDB(); 
 
         //Consultar la BD para obtener los vendedores
@@ -151,7 +157,7 @@
         }
 
     } 
-    require '../../includes/funciones.php';
+    
     incluirTemplate('header');  
 
 ?>

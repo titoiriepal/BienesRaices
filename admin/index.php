@@ -1,6 +1,12 @@
 <?php 
+     
     require '../includes/funciones.php';
     require '../includes/config/database.php';
+
+    $auth = estaAutorizado();
+    if (!$auth) {
+        header("Location:/");
+    }
 
     $db=conectarDB(); 
 
@@ -101,7 +107,7 @@
                         </td>
                         <td><?php echo $propiedad['precio']?> €</td>
                         <td class= "acciones">
-                            <a class="boton boton-amarillo-block" href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']?>.php">Actualizar</a>
+                            <a class="boton boton-amarillo-block" href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']?>">Actualizar</a>
                             <form action="" method="POST" class="w-100">
                                 <input type="hidden" name="id" value="<?php echo $propiedad['id']?>">
                                 <input type="submit" class="boton boton-rojo-block" value="Eliminar">

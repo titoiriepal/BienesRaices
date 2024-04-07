@@ -2,6 +2,11 @@
     require '../../includes/funciones.php';
     require '../../includes/config/database.php';
 
+    $auth = estaAutorizado();
+    if (!$auth) {
+        header("Location:/");
+    }
+
     //Si no hay Id volvemos al index de administración
 
     if(!$_GET['id']){
@@ -10,7 +15,8 @@
 
     //identificamos la propiedad
 
-    $idPropiedad = filter_var(FILTER_VALIDATE_INT,$_GET['id']) ;
+    $idPropiedad = filter_var($_GET['id'],FILTER_VALIDATE_INT) ;
+     
 
     //Consultar la BD para obtener la propiedad
 
