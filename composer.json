@@ -1,9 +1,16 @@
 {
     "name": "titoi/bienesraices",
     "description": "Proyect html SASS GULP PHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tito Ramos",
+            "email": "titoiriepal@hotmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "Titoi\\Bienesraices\\": "src/"
+            "App\\": "./classes"
         }
     },
     "require": {

@@ -1,6 +1,6 @@
 <?php 
-    require '../../includes/funciones.php';
-    require '../../includes/config/database.php';
+    require '../../includes/app.php';
+    
 
     $auth = estaAutorizado();
     if (!$auth) {

@@ -1,5 +1,7 @@
 <?php 
 
+require 'includes/app.php';
+
 $errores = [];
 $email = '';
 //Autenticar el usuario
@@ -20,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 
     if(empty($errores)){
-        require 'includes/config/database.php';
+        
         $db = conectarDB();
 
         $email= mysqli_real_escape_string($db,$email);
@@ -57,10 +59,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 }
 
 //Incluir header
-    require 'includes/funciones.php';
     incluirTemplate('header');
-
-
 
 ?>
 
