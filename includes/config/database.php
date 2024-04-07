@@ -7,7 +7,7 @@ function conectarDB() : mysqli{
 
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
     $dotenv->load();
-    $db = mysqli_connect( 
+    $db = new mysqli( 
         $_SERVER["DB_HOST"], 
         $_SERVER["DB_USER"], 
         $_SERVER["DB_PASSWORD"], 

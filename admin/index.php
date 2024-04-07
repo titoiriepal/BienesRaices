@@ -3,10 +3,8 @@
     require '../includes/app.php';
 
 
-    $auth = estaAutorizado();
-    if (!$auth) {
-        header("Location:/");
-    }
+    estaAutorizado();
+
 
     $db=conectarDB(); 
 

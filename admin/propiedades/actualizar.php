@@ -2,10 +2,8 @@
     require '../../includes/app.php';
     
 
-    $auth = estaAutorizado();
-    if (!$auth) {
-        header("Location:/");
-    }
+    estaAutorizado();
+
 
     //Si no hay Id volvemos al index de administración
 
