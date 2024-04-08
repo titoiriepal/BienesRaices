@@ -42,6 +42,8 @@ class Propiedad{
         $this->vendedores_id = $args['vendedores_id'] ?? '';
     }
 
+    //Guardar registros en la BD
+
     public function guardar(){
 
         //Sanitizar los datos
@@ -57,6 +59,48 @@ class Propiedad{
         $resultado = self::$db->query($query);
 
         return $resultado;
+    }
+
+    //**LISTAR REGISTROS DE LA BASE DE DATOS */
+
+    public static function all(){
+
+        $query = "SELECT * FROM propiedades";
+        $resultado = self::consultarSQL($query);
+
+        return $resultado;
+        
+    }
+
+
+    public static function consultarSQL($query){ //Consulta la base de datos y devuelve un array con todos los resultados que haya generado la consulta
+        //Consultar la BD
+        $resultado = self::$db->query($query);
+
+        //Iterar los resultados
+        $array = [];
+        while ($registro = $resultado->fetch_assoc()){//Por cada registro que nos devuelve la consulta creamos un objeto de esta misma clase
+            $array [] = self::crearObjeto($registro); //Creamos cada objeto uno por uno
+        }
+
+        //Liberar la memoria
+        $resultado->free();
+
+        //Retornar los resultados
+        return $array;
+    }
+
+    protected static function crearObjeto($registro){
+        $objeto = new self;
+
+        foreach($registro as $key => $value){
+            if ( property_exists($objeto, $key) ){  //Comprueba que el valor del nombre del atributo (p.e 'titulo' exista en las propiedades del objeto que le pasas como primer parámetro)
+                $objeto->$key = $value;
+            }
+        }
+
+        return $objeto;
+    
     }
 
     //Identifica y une los atributos de la BD

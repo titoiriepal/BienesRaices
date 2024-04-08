@@ -29,3 +29,9 @@ function debuguear($variable) {
     exit;
 
 }
+
+//Escapa / sanitiza el HTML
+
+function s (string $cadena) : string{
+   return htmlspecialchars($cadena, ENT_QUOTES | ENT_HTML5); //Devuelve la cadena de texto con los caracteres especiales convertidos a lenguaje HTML5 para impedir que se inyecte código en nuestra web
+}

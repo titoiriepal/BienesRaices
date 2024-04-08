@@ -2,15 +2,12 @@
      
     require '../includes/app.php';
 
+    use App\Propiedad;
 
     estaAutorizado();
 
-
-    $db=conectarDB(); 
-
-    $query= "SELECT id,titulo,precio,imagen FROM propiedades;";
-    $resultado = mysqli_query($db, $query);
-     
+    //Implementamos un método para obtener todas las propiedades
+    $propiedades = Propiedad::all();
     
 
     //Mostrar el mensaje condicional
@@ -95,26 +92,26 @@
 
             <tbody>
 
-                <?php  while ($propiedad = mysqli_fetch_assoc($resultado))  : ?>
+                <?php  foreach ($propiedades as $propiedad): ?>
 
                     <tr>
-                        <td><?php echo $propiedad['id']?></td>
-                        <td><?php echo $propiedad['titulo']?></td>
+                        <td><?php echo $propiedad->id?></td>
+                        <td><?php echo $propiedad->titulo?></td>
                         <td class="centrar">
-                            <img class= "imagen-tabla" src="../imagenes/<?php echo $propiedad['imagen']?>" alt="Imagen Propiedad" width="200px" height="160px">
+                            <img class= "imagen-tabla" src="../imagenes/<?php echo $propiedad->imagen?>" alt="Imagen Propiedad" width="200px" height="160px">
                         </td>
-                        <td><?php echo $propiedad['precio']?> €</td>
+                        <td><?php echo $propiedad->precio?> €</td>
                         <td class= "acciones">
-                            <a class="boton boton-amarillo-block" href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']?>">Actualizar</a>
+                            <a class="boton boton-amarillo-block" href="/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id?>">Actualizar</a>
                             <form action="" method="POST" class="w-100">
-                                <input type="hidden" name="id" value="<?php echo $propiedad['id']?>">
+                                <input type="hidden" name="id" value="<?php echo $propiedad->id?>">
                                 <input type="submit" class="boton boton-rojo-block" value="Eliminar">
                             </form>
                             
 
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
                 
             </tbody>
         </table>
@@ -125,6 +122,5 @@
 <?php 
 
     //Cerrar conexión
-    mysqli_close($db);
     incluirTemplate('footer');
 ?>
