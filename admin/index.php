@@ -19,24 +19,18 @@
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if($id){
+
+            $propiedad = Propiedad::find($id);
+            $resultado = $propiedad->eliminar();
             //Eliminar la imagen del servidor
 
-            $query= "SELECT imagen FROM propiedades WHERE id = $id";
-            $resultado = mysqli_query($db, $query);
-            $file = mysqli_fetch_assoc($resultado);
-            $nombreImagen = $file['imagen']; 
-
-             
-
-            $carpetaImagenes = '../imagenes';
-            if(file_exists($carpetaImagenes . '/'. $nombreImagen)){
-                unlink($carpetaImagenes . '/'. $nombreImagen);
-            }
-
-
-            $query = "DELETE FROM propiedades WHERE id = $id";
-            $resultado = mysqli_query($db, $query);
             if($resultado){
+                $nombreImagen = $propiedad->imagen; 
+
+                if(file_exists(CARPETA_IMAGENES. $nombreImagen)){
+                    unlink(CARPETA_IMAGENES . $nombreImagen);
+                }
+            
                 header('location: /admin?message=5');
             }
         }

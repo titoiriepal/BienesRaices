@@ -30,7 +30,7 @@ class Propiedad{
 
     public function __construct($args = []) {
 
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -45,7 +45,7 @@ class Propiedad{
     //Guardar registros en la BD
 
     public function guardar(){
-        if(!($this->id === '')){
+        if(!is_null($this->id)){
             //Actualizamos
             $resultado = $this->actualizar();
 
@@ -143,6 +143,17 @@ class Propiedad{
         return $objeto;
     
     }
+
+    //**ELIMINAR REGISTROS */
+
+    public function eliminar(){
+
+        $query = "DELETE FROM propiedades Where id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+
+        return $resultado;
+    }
+
 
     //Identifica y une los atributos de la BD
     public function atributos(){
