@@ -14,10 +14,7 @@
     $query= "SELECT * FROM vendedores;";
     $vendedores = mysqli_query($db, $query); 
 
-
     $propiedad = new Propiedad();
-
-
 
         //Arrego con mensajes de errores
 
@@ -72,7 +69,6 @@
 
 
             //Crear Carpeta
-            $carpetaImagenes = '../../imagenes/';
 
             if(!is_dir(CARPETA_IMAGENES)){
                 mkdir(CARPETA_IMAGENES);

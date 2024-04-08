@@ -45,6 +45,19 @@ class Propiedad{
     //Guardar registros en la BD
 
     public function guardar(){
+        if(!($this->id === '')){
+            //Actualizamos
+            $resultado = $this->actualizar();
+
+        }else{
+            //Creamos
+            $resultado = $this->crear();
+        }
+
+        return $resultado;
+    }
+
+    public function crear(){
 
         //Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
@@ -61,6 +74,24 @@ class Propiedad{
         return $resultado;
     }
 
+    public function actualizar(){
+
+        //Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+        //Insertar en la BD
+        $query= "UPDATE propiedades SET ";
+        foreach ($atributos as $key => $value){
+            $query .= $key . "= '" . $value . "', " ;
+        }
+        $query = substr($query,0,-2);//quitando el ultimo coma y espacio
+        $query.=" WHERE id='".self::$db->escape_string($this->id) . "' LIMIT 1;";
+        $resultado = self::$db->query($query);
+
+        return $resultado;
+        
+
+    }
+
     //**LISTAR REGISTROS DE LA BASE DE DATOS */
 
     public static function all(){
@@ -69,6 +100,16 @@ class Propiedad{
         $resultado = self::consultarSQL($query);
 
         return $resultado;
+        
+    }
+
+    //**BUSCA UN REGISTRO EN LA BD */
+    public static function find($id){
+
+        $query = "SELECT * FROM propiedades WHERE  id='$id'";
+        $resultado = self::consultarSQL($query);
+
+        return array_shift($resultado); //Devuelve el primer elemento de  un array o false si está vacío.
         
     }
 
@@ -182,9 +223,7 @@ class Propiedad{
             self::$errores[] = 'Debes elegir un vendedor';
         }
 
-        //Comprobar que existe la imagen y que pesa menos de 200KB
-
-        // $limiteKB=2000000; //Limite de 2MB para las imagenes
+        //Comprobar que existe la imagen 
         if(!$this->imagen){
             self::$errores[] = 'La imagen es obligatoria';
         }
@@ -193,5 +232,17 @@ class Propiedad{
 
     }
 
+
+    //**SINCRONIZAR EL OBJETO EN MEMORIA CON LOS CAMBIOS REALIZADOS POR EL USUARIO */
+
+    public function sincronizar( $args = []) {
+
+            foreach($args as $key => $value){
+                if(property_exists($this, $key) && !is_null($value)){
+                    $this->$key = $value;
+                }
+            }
+        
+    }
 }
 
