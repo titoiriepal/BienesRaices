@@ -96,10 +96,19 @@
             case 6 :?>
             <p class="alerta exito">Vendedor borrado correctamente</p>
 
+        <?php break;
+            case 7 :?>
+            <p class="alerta exito">Vendedor Creado correctamente</p>
+
+        <?php break;
+            case 8 :?>
+            <p class="alerta exito">Vendedor Actualizado correctamente</p>
+
         <?php break;}?>
         </div>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <a href="/admin/vendedores/crear.php" class="boton boton-verde">Nuevo Vendedor</a>
 
         <h2>Propiedades</h2>
 
