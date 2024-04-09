@@ -35,3 +35,11 @@ function debuguear($variable) {
 function s (string $cadena) : string{
    return htmlspecialchars($cadena, ENT_QUOTES | ENT_HTML5); //Devuelve la cadena de texto con los caracteres especiales convertidos a lenguaje HTML5 para impedir que se inyecte código en nuestra web
 }
+
+//Validar tipo de id para admin/index.html
+function validarTipoId($tipo){
+
+    $tipos = ['idVendedor' , 'idPropiedad'];
+
+    return in_array($tipo, $tipos);
+}

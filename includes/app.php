@@ -6,12 +6,12 @@
     require 'config/database.php';
     require __DIR__ . '/../vendor/autoload.php';
 
-    use App\Propiedad;
+    use App\ActiveRecord;
 
     //Conectarnos a la base de datos
     $db = conectarDB();
 
-    Propiedad::setDB($db);
+    ActiveRecord::setDB($db);
 
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();

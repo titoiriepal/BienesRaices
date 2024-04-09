@@ -2,26 +2,22 @@
     require '../../includes/app.php';
 
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManager as Image;
     use Intervention\Image\Drivers\Gd\Driver;
 
     estaAutorizado();
 
-    $db=conectarDB(); 
-
+    $propiedad = new Propiedad();
     //Consultar la BD para obtener los vendedores
 
-    $query= "SELECT * FROM vendedores;";
-    $vendedores = mysqli_query($db, $query); 
+    $vendedores = Vendedor::all();
 
-    $propiedad = new Propiedad();
+    //Arrego con mensajes de errores
 
-        //Arrego con mensajes de errores
+    $errores= Propiedad::getErrores();
 
-        $errores= Propiedad::getErrores();
-
-        //Insertar en la base de datos
-
+    //Insertar en la base de datos
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
 
@@ -29,7 +25,7 @@
 
          //Generar un nombre único
         
-        if($_FILES['imagen']['tmp_name']){
+        if($_FILES['imagen']['tmp_name'] !="") {
 
             $typeImagen = $_FILES['imagen']['type'];
 
@@ -59,7 +55,8 @@
            }
 
            $errores = $propiedad->validar();
-           if($_FILES['imagen']['error']){
+           
+           if($_FILES['imagen']['tmp_name'] !="" && $_FILES['imagen']['error']){
                 $errores[] = 'Ha ocurrido un error en el envío del archivo: '. $_FILES['imagen']['error'];
             }
         
@@ -96,6 +93,7 @@
      <main class="contenedor seccion">
         <h1>Crear Propiedad</h1>
 
+        <a href="/admin/index.php" class="boton boton-verde">Página de Administración</a>
         <a href="javascript:history.back()" class="boton boton-verde">Volver</a>
 
         <div class="errores">

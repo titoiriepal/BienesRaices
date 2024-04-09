@@ -1,8 +1,9 @@
 <?php
 
-use App\Propiedad;
-use Intervention\Image\ImageManager as Image;
-use Intervention\Image\Drivers\Gd\Driver;
+    use App\Propiedad;
+    use App\Vendedor;
+    use Intervention\Image\ImageManager as Image;
+    use Intervention\Image\Drivers\Gd\Driver;
 
     require '../../includes/app.php';
     
@@ -36,8 +37,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 
     //Consulta para obtener los vendedores de BD
 
-    $query= "SELECT * FROM vendedores;";
-    $vendedores = mysqli_query($db, $query);
+    $vendedores = Vendedor::all();
 
     $errores=[];
 
