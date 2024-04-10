@@ -81,6 +81,17 @@ class ActiveRecord{
         
     }
 
+    //**OBTENER UN DETERMINADO NÚMERO DE REGISTROS  */
+
+    public static function get(int $limite){
+        $query ="SELECT * FROM " . static::$tabla . " LIMIT ". $limite;
+
+        $resultado = self::consultarSQL($query);
+
+        return $resultado;
+
+    }
+
     //**BUSCA UN REGISTRO EN LA BD */
     public static function find($id){
 

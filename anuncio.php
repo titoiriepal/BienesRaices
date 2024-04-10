@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use App\Propiedad;
+
     require 'includes/app.php';
     
 
@@ -19,11 +22,7 @@
 
     }else{
 
-        $db=conectarDB(); 
-
-        $query= "SELECT * FROM propiedades WHERE id = '$idPropiedad';";
-        $resultado = mysqli_query($db, $query);
-        $propiedad = mysqli_fetch_assoc($resultado);
+        $propiedad = Propiedad::find($idPropiedad);
 
         if(!$propiedad){
             header('location:/');
@@ -37,30 +36,30 @@
 
 
      <main class="contenedor seccion contenido-centrado">
-        <h1><?php echo $propiedad['titulo'];?></h1>
+        <h1><?php echo $propiedad->titulo;?></h1>
 
-                <img loading="lazy" src="imagenes/<?php echo $propiedad['imagen'];?>" alt="Casa en venta" height="100%" width="100%">
+                <img loading="lazy" src="imagenes/<?php echo $propiedad->imagen;?>" alt="Casa en venta" height="100%" width="100%">
             
 
             <div class="resumen-propiedad">
-                <p class="precio"><?php echo $propiedad['precio'];?>€</p>         
+                <p class="precio"><?php echo $propiedad->precio;?>€</p>         
 
                 <ul class="iconos-caracteristicas">
                     <li>
                         <img loading="lazy" src="build/img//icono_wc.svg" alt="Icono wc" height="100%" width="100%">
-                        <p><?php echo $propiedad['wc'];?></p>
+                        <p><?php echo $propiedad->wc;?></p>
                     </li>
                     <li>
                         <img loading="lazy" src="build/img//icono_estacionamiento.svg" alt="Icono estacionamiento" height="100%" width="100%">
-                        <p><?php echo $propiedad['estacionamiento'];?></p>
+                        <p><?php echo $propiedad->estacionamiento;?></p>
                     </li>
                     <li>
                         <img loading="lazy" src="build/img//icono_dormitorio.svg" alt="Icono dormitorios" height="100%" width="100%">
-                        <p><?php echo $propiedad['habitaciones'];?></p>
+                        <p><?php echo $propiedad->habitaciones;?></p>
                     </li>
                 </ul>
                 
-                <p><?php echo $propiedad['descripcion'];?></p>
+                <p><?php echo $propiedad->descripcion;?></p>
 
                 
             </div><!-- .Contenido Anuncio -->
@@ -71,5 +70,5 @@
 
 <?php 
     incluirTemplate('footer');
-    mysqli_close($db);
+    
 ?>

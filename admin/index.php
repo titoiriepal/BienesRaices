@@ -70,45 +70,12 @@
      <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
 
-        
-
-        <div class="errores">
-        <?php switch(intval($message)) { 
-            case 1: ?>
-            <p class="alerta exito">Propiedad insertada correctamente</p>
-        <?php break; 
-            case 2 :?>
-            <p class="alerta error">No se ha proporcionado un id para la actualización</p>
-
-        <?php break; 
-            case 3 :?>
-            <p class="alerta error">El id proporcionado para la actualización no corresponde con ningun registro</p>
-
-        <?php break; 
-            case 4 :?>
-            <p class="alerta exito">Propiedad actualizada correctamente</p>
-
-        <?php break; 
-            case 5 :?>
-            <p class="alerta exito">Propiedad borrada correctamente</p>
-
-        <?php break;  
-            case 6 :?>
-            <p class="alerta exito">Vendedor borrado correctamente</p>
-
-        <?php break;
-            case 7 :?>
-            <p class="alerta exito">Vendedor Creado correctamente</p>
-
-        <?php break;
-            case 8 :?>
-            <p class="alerta exito">Vendedor Actualizado correctamente</p>
-
-        <?php break;}?>
-        </div>
+        <?php 
+            include TEMPLATES_URL."/mensajes.php"; 
+        ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
-        <a href="/admin/vendedores/crear.php" class="boton boton-verde">Nuevo Vendedor</a>
+        <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
 
         <h2>Propiedades</h2>
 
