@@ -43,3 +43,48 @@ function validarTipoId($tipo){
 
     return in_array($tipo, $tipos);
 }
+
+function mostrarNotificación($codigo) { //Devuelve un mensaje de error y la clase del párrafo según el código que le introducimos
+    $mensaje = '';
+    $clase= '';
+     switch(intval($codigo)) { 
+        case 1: 
+            $mensaje='Propiedad insertada correctamente';
+            $clase='exito';
+        break; 
+        case 2 :
+            $mensaje='No se ha proporcionado un id para la actualización';
+            $clase='error';
+     break; 
+        case 3:
+        $mensaje='El id proporcionado para la actualización no corresponde con ningun registro';
+            $clase='error';
+     break; 
+        case 4:
+        $mensaje='Propiedad actualizada correctamente';
+            $clase='exito';
+     break; 
+        case 5:
+        $mensaje='Propiedad borrada correctamente';
+            $clase='exito';
+     break;  
+        case 6:
+        $mensaje='Vendedor borrado correctamente';
+            $clase='exito';
+     break;
+        case 7:
+        $mensaje='Vendedor Creado correctamente';
+            $clase="exito";
+     break;
+        case 8:
+        $mensaje='Vendedor Actualizado correctamente';
+            $clase="exito";
+     break;
+        default:
+        $mensaje='';
+        $clase='';
+     
+     ;}
+
+     return [$mensaje,$clase];
+}
