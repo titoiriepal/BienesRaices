@@ -1,12 +1,20 @@
 {
     "name": "titoi/bienesraices",
     "description": "Proyect html SASS GULP PHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tito Ramos",
+            "email": "titoiriepal@hotmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "Titoi\\Bienesraices\\": "src/"
+            "App\\": "./classes"
         }
     },
     "require": {
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "intervention/image": "^3.5"
     }
 }
